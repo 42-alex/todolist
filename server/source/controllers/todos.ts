@@ -2,13 +2,7 @@ import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { delay } from '../helpers';
 import { mockTodos } from '../mocks/data';
-
-
-interface Todo {
-  id: string
-  title: string
-  isDone: boolean
-}
+import { Todo } from '../types';
 
 
 const getAllTodos = async (req: Request, res: Response) => {
