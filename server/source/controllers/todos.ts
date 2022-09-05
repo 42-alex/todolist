@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-
-const delay = async (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+import { delay } from '../helpers';
 
 const mockTodos = [
   {
