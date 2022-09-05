@@ -2,9 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "my restful api for todolist app",
-  "main": "server.ts",
+  "main": "source/server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon source/server.ts",
+    "build": "rm -rf build/ && prettier --write source/ && tsc"
   },
   "keywords": [
     "node.js",
