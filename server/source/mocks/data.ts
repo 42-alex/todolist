@@ -1,4 +1,6 @@
-export const mockTodos = [
+import { Todo } from '../types';
+
+export const mockTodos: Todo[] = [
   {
     id: '1',
     title: 'To buy meat',
