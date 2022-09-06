@@ -38,15 +38,15 @@ const getTodo = async (req: Request, res: Response) => {
 const updateTodo = async (req: Request, res: Response) => {
   await delay(800);
   const id: string = req.params.id;
-  const newTitle: string = req.body.title ?? null;
+  const newTitle: string = req.body.title;
   const todoToUpdate: Todo | undefined = mockTodos.find(todo => todo.id === id)
 
   // if the tоdo was not found
-  if (!todoToUpdate) {
-    const errorMessage: string = `A todo with id '${id}' was not found`
+  if (!todoToUpdate || !newTitle) {
+    const errorMessage: string = `Bad request. Make sure you provided the correct id and title`
 
     return res
-      .status(404)
+      .status(400)
       .json({ error: { message: errorMessage }})
   }
 
@@ -90,6 +90,16 @@ const deleteTodo = async (req: Request, res: Response) => {
 const addTodo = async (req: Request, res: Response) => {
   const newTodoId: string = uuidv4();
   const newTitle: string = req.body.title;
+
+  if (!newTitle) {
+    const errorMessage = 'It seems the title you provided is not correct';
+
+    return res
+      .status(400)
+      .json({ error: { message: errorMessage } })
+  }
+
+
   const newTodo: Todo = {
     id: newTodoId,
     title: newTitle,
