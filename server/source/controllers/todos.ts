@@ -7,11 +7,10 @@ import { Todo } from '../types';
 
 const getAllTodos = async (req: Request, res: Response) => {
   await delay(800);
-  let todos: Todo[] = mockTodos;
 
   return res
     .status(200)
-    .json({ message: todos, status: 'OK' })
+    .json({ data: mockTodos, meta: null })
 }
 
 
@@ -26,13 +25,13 @@ const getTodo = async (req: Request, res: Response) => {
 
     return res
       .status(404)
-      .json({ message: errorMessage, status: 'Error' })
+      .json({ error: { message: errorMessage }})
   }
 
   // if the tоdo was found
   return res
     .status(200)
-    .json({ message: requestedTodo, status: 'OK' })
+    .json({ data: requestedTodo, meta: null })
 }
 
 
@@ -48,7 +47,7 @@ const updateTodo = async (req: Request, res: Response) => {
 
     return res
       .status(404)
-      .json({ message: errorMessage, status: 'Error' })
+      .json({ error: { message: errorMessage }})
   }
 
   // if the tоdo was found
@@ -58,7 +57,7 @@ const updateTodo = async (req: Request, res: Response) => {
 
   return res
     .status(200)
-    .json({ message: todoToUpdate, status: 'OK' })
+    .json({ data: todoToUpdate, meta: null })
 }
 
 
@@ -73,15 +72,18 @@ const deleteTodo = async (req: Request, res: Response) => {
 
     return res
       .status(404)
-      .json({ message: errorMessage, status: 'Error' })
+      .json({ error: { message: errorMessage }})
   }
 
   // if the tоdo was found
-  const successMessage: string = `A todo with id '${id}' was deleted successfully`
+  const todoToDeleteIndex = mockTodos.findIndex(todo => todo.id === todoToDelete.id )
+  // @ts-ignore
+  globalThis.mockTodos = mockTodos;
+  mockTodos.splice(todoToDeleteIndex, 1);
 
   return res
     .status(200)
-    .json({ message: successMessage, status: 'OK' })
+    .json({ data: todoToDelete, meta: null })
 }
 
 
@@ -97,7 +99,7 @@ const addTodo = async (req: Request, res: Response) => {
 
   return res
     .status(201)
-    .json({ message: newTodo, status: 'OK' })
+    .json({ data: newTodo })
 }
 
 
