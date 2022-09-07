@@ -1,3 +1,3 @@
 This file was created for test purposes
 This row was added in the second commit after a pull request was created.
-Third row for a new commit.
+This line was completely replaced.
