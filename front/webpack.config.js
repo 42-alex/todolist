@@ -78,10 +78,23 @@ module.exports={
         use:  'babel-loader' //loader which we are going to use
       },
       {
+        test: /\.css$/i,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+              modules: true,
+            },
+          },
+        ],
+      },
+      {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: 'ts-loader'
-      }
+      },
     ]
   }
 }
