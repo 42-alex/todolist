@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Home: React.FC = () => {
+const Home = (): JSX.Element => {
   return (
     <h2>Home page</h2>
   )

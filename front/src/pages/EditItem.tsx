@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EditItem: React.FC = () => {
+const EditItem = (): JSX.Element => {
   return (
     <h2>Edit item page</h2>
   )
