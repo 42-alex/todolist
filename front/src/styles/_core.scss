@@ -1,0 +1,50 @@
+html,
+body,
+#root,
+#root > .app,
+#root > main {
+	height: 100%;
+}
+main {
+	overflow: auto;
+}
+html {
+	box-sizing: border-box;
+}
+html * {
+	box-sizing: inherit;
+}
+body {
+	margin: 0;
+	font-family: 'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-size: '16px';
+	line-height: 1.35;
+}
+
+a {
+	color: #4fc3f6;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	&:hover {
+		text-decoration: none;
+	}
+	svg {
+		font-size: 24px;
+		margin-right: 6px;
+		fill: currentColor;
+	}
+}
+#root {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+.container {
+  max-width: 1536px;
+  padding: 0 10px;
+  margin: 0 auto;
+}
