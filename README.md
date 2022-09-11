@@ -10,6 +10,8 @@ But I used [cors middleware](https://expressjs.com/en/resources/middleware/cors.
 
 
 ### Frontend
+#### 1. Set up project with webpack and babel
+
 To create a frontend I followed by the next guide:
 [Create React App without Create React App](https://blog.bitsrc.io/create-react-app-without-create-react-app-b0a5806a92)
 Some clarifications regarding this guide:
@@ -26,8 +28,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
 ```
 
+#### 2. Add TypeScript to the project 
 <details>
-<summary>Then I added TypeScript to my project</summary>
+<summary>An instruction</summary>
 
 * <b>Step 1</b>: Install "ts-loader" package
 
@@ -98,4 +101,72 @@ module.exports = {
   For example: App.js -> App.tsx
 
 
+</details>
+
+#### 3. Add CSS and SCSS modules to the project 
+<details>
+<summary>An instruction</summary>
+
+* <b>Step 1</b>: Install required npm packages
+
+```
+npm install style-loader css-loader sass-loader sass --save-dev 
+```
+Pay attention that some outdated resources on web recommend installing "node-sass" package
+instead of "sass" package, but it didn't work for me.
+
+* <b>Step 2</b>: Teach webpack to read and to work with css and scss files
+  
+<details>
+<summary>webpack.config.js</summary>
+
+```
+...
+
+module.exports = {
+  //...
+  module: {
+    rules: [
+      //...
+      {
+        test: /\.(scss|css)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
+  },
+  //...
+};
+```
+
+</details>
+
+* <b>Step 3</b>: Declare your modules
+
+You just need to create `typings.d.ts` file at the same directory as your `webpack.config.js`.
+You can give any other name to this file.
+
+<details>
+<summary>typings.d.ts</summary>
+
+```
+declare module "*.module.css";
+declare module "*.module.scss";
+```
+</details> 
+
+* <b>Step 4</b>: Include your module declarations from the previous step to `tsconfig.json`
+
+<details>
+<summary>tsconfig.json</summary>
+
+```
+{
+  //...
+  "include": [
+    //...
+    "typings.d.ts"
+  ]
+}
+```
+</details>
 </details>
