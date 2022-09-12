@@ -7,5 +7,6 @@ interface Todo {
 interface TodosArr extends Array<Todo> {}
 
 export type {
+  Todo,
   TodosArr
 }
