@@ -7,7 +7,7 @@ import AddItem from '../AddItem';
 import EditItem from '../EditItem';
 import NoMatch from '../NoMatch';
 
-const App: React.FC = () => {
+const App = (): JSX.Element => {
   return (
     <div className="app">
       <Header />
