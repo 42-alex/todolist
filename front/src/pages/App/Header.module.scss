@@ -1,0 +1,24 @@
+.header {
+  height: 60px;
+  background-color: cadetblue;
+  color: #fff;
+}
+
+.headerNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+
+.siteLogoLink {
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.siteMenuLink {
+  color: white;
+  margin-left: 30px;
+}

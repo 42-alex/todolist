@@ -12,7 +12,7 @@ module.exports={
   /** "entry"
    * the entry point
    */
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
   output: {
     /** "path"
      * the folder path of the output file
@@ -78,10 +78,14 @@ module.exports={
         use:  'babel-loader' //loader which we are going to use
       },
       {
+        test: /\.(scss|css)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: 'ts-loader'
-      }
+      },
     ]
   }
 }
