@@ -7,6 +7,11 @@ const axiosInstance = axios.create({
   // headers: {},
 });
 
+export type APIResponseType<D = {}, M = {}> = {
+  data: D
+  meta: M
+}
+
 export {
   axiosInstance
 }
