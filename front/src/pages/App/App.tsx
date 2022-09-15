@@ -7,6 +7,7 @@ import AddItem from '../AddItem';
 import EditItem from '../EditItem';
 import NoMatch from '../NoMatch';
 import MessagesBox from '../../components/MessagesBox';
+import Loader from '../../components/Loader';
 
 const App = (): JSX.Element => {
   return (
@@ -21,6 +22,7 @@ const App = (): JSX.Element => {
       <Footer />
 
       <MessagesBox />
+      <Loader />
     </div>
   );
 }

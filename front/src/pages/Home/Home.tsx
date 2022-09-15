@@ -5,6 +5,7 @@ import { TodosArr } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStateType } from '../../redux/store';
 import { setTodos } from '../../redux/todo-reducer';
+import { setIsFetching } from '../../redux/app-reducer';
 import { AxiosError } from 'axios';
 import { addMessage } from '../../redux/messages-reducer';
 import styles from './Home.module.scss';
@@ -32,11 +33,19 @@ const Home = (): JSX.Element => {
           text: error?.message || '',
         }));
       },
-    });
+      onSettled: () => {
+        dispatch(setIsFetching(false));
+      },
+    }
+  );
+
+  // set up loader
+  if (isFetching) {
+    dispatch(setIsFetching(true));
+  }
 
   return (
     <div className="container">
-      {isFetching && <p>Loading...</p>}
       { todos?.length > 0 &&
         <ul className={styles.todosList}>
           {todos.map(todo => (
