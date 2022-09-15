@@ -13,4 +13,6 @@ export const todoSlice = createSlice({
   }
 })
 
+export const { setTodos } = todoSlice.actions;
+
 export default todoSlice.reducer;
