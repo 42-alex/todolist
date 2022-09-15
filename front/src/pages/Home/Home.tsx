@@ -1,12 +1,12 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { todosAPI } from '../api/todos-api';
-import { TodosArr } from '../types';
+import { todosAPI } from '../../api/todos-api';
+import { TodosArr } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootStateType } from '../redux/store';
-import { setTodos } from '../redux/todo-reducer';
+import { RootStateType } from '../../redux/store';
+import { setTodos } from '../../redux/todo-reducer';
 import { AxiosError } from 'axios';
-import { addMessage } from '../redux/messages-reducer';
+import { addMessage } from '../../redux/messages-reducer';
 import styles from './Home.module.scss';
 
 type useQueryType = {
