@@ -1,0 +1,47 @@
+.message {
+  display: flex;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.error {
+  background-color: rgb(253, 237, 237);
+}
+
+.warning {
+  background-color: rgb(255, 244, 229);
+}
+
+.info {
+  background-color: rgb(229, 246, 253);
+}
+
+.success {
+  background-color: rgb(237, 247, 237);
+}
+
+.closeButton {
+  border: 0;
+  border-radius: 50%;
+  margin-left: auto;
+  background: transparent;
+}
+
+.closeIcon {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  fill: currentColor;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
