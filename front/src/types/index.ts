@@ -4,11 +4,7 @@ interface Todo {
   isDone: boolean
 }
 
-interface TodoDTO {
-  id: string
-  title: string
-  isDone: boolean
-}
+interface TodoDTO extends Todo {}
 
 interface TodosArr extends Array<Todo> {}
 
