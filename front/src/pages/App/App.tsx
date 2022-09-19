@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Header from './Header/Header';
+import Header from './Header';
 import Footer from './Footer';
-import Home from '../Home/Home';
+import Home from '../Home';
 import AddItem from '../AddItem';
 import EditItem from '../EditItem';
 import NoMatch from '../NoMatch';
