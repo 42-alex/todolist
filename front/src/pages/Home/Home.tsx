@@ -5,10 +5,10 @@ import { TodosArr } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStateType } from '../../redux/store';
 import { setTodos } from '../../redux/todo-reducer';
-import { setIsFetching } from '../../redux/app-reducer';
 import { AxiosError } from 'axios';
 import { addMessage } from '../../redux/messages-reducer';
 import styles from './Home.module.scss';
+import Loader from '../../components/Loader';
 
 type useQueryType = {
   error: AxiosError | null
@@ -32,16 +32,12 @@ const Home = (): JSX.Element => {
         dispatch(addMessage({
           text: error?.message || '',
         }));
-      },
-      onSettled: () => {
-        dispatch(setIsFetching(false));
-      },
+      }
     }
   );
 
-  // set up loader
   if (isFetching) {
-    dispatch(setIsFetching(true));
+    return <Loader />
   }
 
   return (

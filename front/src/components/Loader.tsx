@@ -1,14 +1,7 @@
 import React from 'react';
 import styles from './Loader.module.scss';
-import { useSelector } from 'react-redux';
-import { RootStateType } from '../redux/store';
 
 const Loader = (): JSX.Element | null => {
-  const { isFetching } = useSelector((state: RootStateType) => state.app)
-
-  if (!isFetching) {
-    return null;
-  }
 
   return (
     <div className={styles.loaderWrapper}>
