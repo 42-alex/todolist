@@ -2,17 +2,12 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { todosAPI } from '../../api/todos-api';
 import { TodosArr } from '../../types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AxiosError } from 'axios';
 import { addMessage } from '../../redux/messages-reducer';
 import styles from './Home.module.scss';
 import Loader from '../../components/Loader';
 
-type useQueryType = {
-  data: TodosArr | undefined,
-  error: AxiosError | null
-  [propName: string]: any
-}
 
 const Home = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -20,15 +15,17 @@ const Home = (): JSX.Element => {
   const {
     data: todos = [],
     isFetching,
-  }: useQueryType = useQuery(
+  } = useQuery<TodosArr, AxiosError>(
     ['todos'],
     todosAPI.getAllTodos,
     {
       onError: (error) => {
-        dispatch(addMessage({
-          text: error?.message || '',
-        }));
-      }
+        if (error?.message) {
+          dispatch(addMessage({
+            text: error.message,
+          }));
+        }
+      },
     }
   );
 
