@@ -1,27 +1,28 @@
 import { Todo, TodoDTO } from '../types'
 
 const parseTodoDTO = (data: {[propName: string]: any}) => {
+  // todo: add zod validation - https://github.com/42-alex/todolist/pull/10#discussion_r973626769
   const todoDTO = {} as TodoDTO;
 
   // check id
-  if('id' in data) {
+  if(('id' in data) && (typeof data.id === 'string')) {
     todoDTO.id = data.id;
   } else {
-    throw new Error('There is no todo id. I can\'t work without it')
+    throw new Error('There is no "id" key in data source or its type is not a "string"')
   }
 
   // check title
-  if ('title' in data) {
+  if (('title' in data) && (typeof data.title === 'string')) {
     todoDTO.title = data.title;
   } else {
-    throw new Error(`There is no known key for title in todo with id: ${todoDTO.id}`)
+    throw new Error(`There is no "title" key in data source or its type is not a "string"`)
   }
 
   // check isDone
-  if ('isDone' in data) {
+  if (('isDone' in data) && (typeof data.isDone === 'boolean')) {
     todoDTO.isDone = data.isDone;
   } else { // set false by default
-    console.log(`A prop "isDone" for the todo with id: ${todoDTO.id} was set to false as there was not find appropriate key from response`);
+    console.log(`There is no "isDone" key in data source or its type is not a "boolean". The default value has been set to: false`);
     todoDTO.isDone = false;
   }
 
