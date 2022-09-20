@@ -35,7 +35,7 @@ const Home = (): JSX.Element => {
 
   return (
     <div className="container">
-      { todos?.length > 0 &&
+      { todos.length > 0 &&
         <ul className={styles.todosList}>
           {todos.map(todo => (
             <li key={todo.id}
