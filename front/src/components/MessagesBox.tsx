@@ -1,11 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootStateType } from '../redux/store';
 import Message from './Message';
 import styles from './MessagesBox.module.scss';
+import { removeMessage } from '../redux/messages-reducer';
 
 const MessageBox = () => {
   const messages = useSelector((state: RootStateType) => state.messages)
+  const dispatch = useDispatch();
+
+  const handleCloseMessage = (messageId: string) => {
+    dispatch(removeMessage({ messageId }));
+  }
 
   if (!messages?.length) {
     return null;
@@ -13,7 +19,13 @@ const MessageBox = () => {
 
   return (
     <div className={`${styles.messagesBox} container`}>
-      { messages.map(message => <Message key={message.id} message={message} />) }
+      { messages.map(message => (
+        <Message
+          key={message.id}
+          message={message}
+          onClose={handleCloseMessage}
+        />
+      ))}
     </div>
   )
 };
