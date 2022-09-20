@@ -6,6 +6,7 @@ import Home from '../Home';
 import AddItem from '../AddItem';
 import EditItem from '../EditItem';
 import NoMatch from '../NoMatch';
+import MessagesBox from '../../components/MessagesBox';
 
 const App = (): JSX.Element => {
   return (
@@ -18,6 +19,8 @@ const App = (): JSX.Element => {
         <Route path="*" element={<NoMatch />} />
       </Routes>
       <Footer />
+
+      <MessagesBox />
     </div>
   );
 }
