@@ -21,4 +21,10 @@
 .siteMenuLink {
   color: white;
   margin-left: 30px;
+  border-bottom: 2px solid transparent;
+  transition: all .5s;
+
+  &:global(.active) {
+    border-bottom-color: white;
+  }
 }
