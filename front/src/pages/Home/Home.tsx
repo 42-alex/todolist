@@ -26,6 +26,7 @@ const Home = (): JSX.Element => {
           }));
         }
       },
+      refetchOnWindowFocus: false,
     }
   );
 
