@@ -7,6 +7,7 @@ import { AxiosError } from 'axios';
 import { addMessage } from '../../redux/messages-reducer';
 import styles from './Home.module.scss';
 import Loader from '../../components/Loader';
+import { Link } from 'react-router-dom';
 
 
 const Home = (): JSX.Element => {
@@ -47,6 +48,8 @@ const Home = (): JSX.Element => {
           ))}
         </ul>
       }
+
+      <Link to="/add" className={styles.addButton}>+</Link>
     </div>
   )
 };
