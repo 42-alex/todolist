@@ -33,15 +33,21 @@
   select {
     border: 1px solid #CED4DA;
     border-radius: 4px;
-    padding: 4px;
+    padding: 6px 10px;
+
+    &:focus-visible {
+      outline-color: cornflowerblue;
+    }
   }
 }
 
 .submitButton {
+  font-size: 16px;
   color: #fff;
   background-color: #0d6efd;
   border: none;
   border-radius: 4px;
-  padding: 6px 12px;
+  padding: 8px 12px;
+  margin-top: 15px;
   cursor: pointer;
 }
