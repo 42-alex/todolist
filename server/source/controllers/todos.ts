@@ -38,21 +38,23 @@ const getTodo = async (req: Request, res: Response) => {
 const updateTodo = async (req: Request, res: Response) => {
   await delay(800);
   const id: string = req.params.id;
-  const newTitle: string = req.body.title;
-  const todoToUpdate: Todo | undefined = mockTodos.find(todo => todo.id === id)
+  const todoToUpdate = mockTodos.find(todo => todo.id === id);
 
   // if the tоdo was not found
-  if (!todoToUpdate || !newTitle) {
-    const errorMessage: string = `Bad request. Make sure you provided the correct id and title`
+  if (!todoToUpdate) {
+    const errorMessage: string = `Bad request. Make sure you provided the correct id`;
 
     return res
       .status(400)
       .json({ error: { message: errorMessage }})
   }
 
-  // if the tоdo was found
-  if (todoToUpdate) {
-    todoToUpdate.title = newTitle
+  // update only props with new data
+  if (req.body.title) {
+    todoToUpdate.title = req.body.title;
+  }
+  if (req.body.isDone != null) {
+    todoToUpdate.isDone = req.body.isDone;
   }
 
   return res
