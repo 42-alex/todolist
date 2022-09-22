@@ -36,11 +36,14 @@ const Home = (): JSX.Element => {
       { todos.length > 0 &&
         <ul className={styles.todosList}>
           {todos.map(todo => (
-            <li key={todo.id}
-              className={styles.todosItem}
-            >
-              {todo.title}
-            </li>
+            <div className={styles.todoWrapper} key={todo.id}>
+              <span className={styles.checkIcon}>
+                {todo.isDone ? <i>&#9745;</i> : <i>&#9744;</i>}
+              </span>
+              <li className={styles.todoItem}>
+                {todo.title}
+              </li>
+            </div>
           ))}
         </ul>
       }
