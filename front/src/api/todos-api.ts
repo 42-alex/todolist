@@ -22,8 +22,14 @@ export const todosAPI = {
         return todo;
       })
   },
-  updateTodo(id: number, newTitle: string) {
-    return axiosInstance.put<Todo>(`/todos/${id}`, { title: newTitle })
+  updateTodo(newData: { id: string, title?: string, isDone?: boolean }) {
+    const { id, title, isDone } = newData;
+    return axiosInstance.put<Todo>(
+      `/todos/${id}`,
+      {
+        title,
+        isDone
+      })
       .then(response => {
         const todoDTO = parseTodoDTO(response.data);
         const todo = fromDTO(todoDTO);

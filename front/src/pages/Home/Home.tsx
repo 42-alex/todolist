@@ -15,6 +15,7 @@ const Home = (): JSX.Element => {
   const {
     data: todos = [],
     isFetching,
+    refetch,
   } = useQuery<TodosArr, AxiosError>(
     ['todos'],
     todosAPI.getAllTodos,
@@ -30,13 +31,21 @@ const Home = (): JSX.Element => {
     }
   );
 
+  const handleTodoClick = (id: string, isDone: boolean) => {
+    todosAPI.updateTodo({ id, isDone })
+      .then(() => refetch())
+      .catch((e: AxiosError) => {
+        dispatch(addMessage({ text: e.message }))
+      });
+  }
+
   return (
     <div className="container">
       { isFetching && <Loader /> }
       { todos.length > 0 &&
         <ul className={styles.todosList}>
           {todos.map(todo => (
-            <div className={styles.todoWrapper} key={todo.id}>
+            <div className={styles.todoWrapper} key={todo.id} onClick={() => handleTodoClick(todo.id, !todo.isDone)}>
               <span className={styles.checkIcon}>
                 {todo.isDone ? <i>&#9745;</i> : <i>&#9744;</i>}
               </span>
