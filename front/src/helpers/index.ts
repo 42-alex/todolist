@@ -34,6 +34,7 @@ const fromDTO = (todoDTO: TodoDTO) => {
   const todo = {} as Todo;
   todo.id = todoDTO.id;
   todo.title = todoDTO.title;
+  todo.isDone = todoDTO.isDone;
 
   return todo;
 }
@@ -43,6 +44,7 @@ const toDTO = (todo: Todo) => {
   const todoDTO = {} as TodoDTO;
   todoDTO.id = todo.id;
   todoDTO.title = todo.title;
+  todoDTO.isDone = todo.isDone;
 
   return todoDTO;
 }
