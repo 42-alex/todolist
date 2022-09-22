@@ -29,12 +29,9 @@ const Home = (): JSX.Element => {
     }
   );
 
-  if (isFetching) {
-    return <Loader />
-  }
-
   return (
     <div className="container">
+      { isFetching && <Loader /> }
       { todos.length > 0 &&
         <ul className={styles.todosList}>
           {todos.map(todo => (
