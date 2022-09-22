@@ -14,7 +14,7 @@ const AddItem = () => {
       <form onSubmit={handleFormSubmit} className={styles.addForm}>
         <div className={styles.formGroup}>
           <label htmlFor="todoTitle">Title:</label>
-          <input type="text" id="todoTitle" name="todoTitle" />
+          <input type="text" id="todoTitle" name="todoTitle" minLength={2} maxLength={130} required />
         </div>
         <div className={styles.formGroup}>
           <label htmlFor="todoImportance">Importance:</label>
