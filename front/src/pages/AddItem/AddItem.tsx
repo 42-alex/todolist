@@ -19,12 +19,13 @@ const AddItem = () => {
         <div className={styles.formGroup}>
           <label htmlFor="todoImportance">Importance:</label>
           <select id="todoImportance" name="todoImportance">
+            {/*todo: use importanceArr.map to generate options when PR https://github.com/42-alex/todolist/pull/13 will be merged */}
             <option>Ordinary</option>
             <option>Important</option>
             <option>Urgent</option>
           </select>
         </div>
-        <button className={styles.submitButton}>Save</button>
+        <button className={styles.submitButton}>Add</button>
       </form>
     </div>
   )
