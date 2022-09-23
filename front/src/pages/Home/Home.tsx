@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { todosAPI } from '../../api/todos-api';
 import { TodosArr } from '../../types';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../hooks';
 import { AxiosError } from 'axios';
 import { addMessage } from '../../redux/messages-reducer';
 import styles from './Home.module.scss';
@@ -10,7 +10,7 @@ import Loader from '../../components/Loader';
 
 
 const Home = (): JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const {
     data: todos = [],
