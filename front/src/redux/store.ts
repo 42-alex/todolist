@@ -8,6 +8,7 @@ const store = configureStore({
 })
 
 export type RootStateType = ReturnType<typeof store.getState>;
+export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never;
 
 export default store;
 
