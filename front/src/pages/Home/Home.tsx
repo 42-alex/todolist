@@ -1,5 +1,9 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { todosAPI } from '../../api/todos-api';
 import { TodosArr } from '../../types';
 import { useDispatch } from 'react-redux';
@@ -11,11 +15,11 @@ import Loader from '../../components/Loader';
 
 const Home = (): JSX.Element => {
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   const {
     data: todos = [],
     isFetching,
-    refetch,
   } = useQuery<TodosArr, AxiosError>(
     ['todos'],
     todosAPI.getAllTodos,
@@ -31,12 +35,45 @@ const Home = (): JSX.Element => {
     }
   );
 
+  const updateTodoMutation = useMutation(
+    (updatedTodo: {id: string, isDone: boolean}) => todosAPI.updateTodo(updatedTodo),
+    {
+      onMutate: async (updatedTodo: {id: string, isDone: boolean}) => {
+        await queryClient.cancelQueries(['todos']);
+        const previousTodos = queryClient.getQueryData<TodosArr>(['todos']);
+        if (previousTodos) {
+          queryClient.setQueryData<TodosArr>(
+            ['todos'],
+            previousTodos.map(todo => {
+              if (todo.id === updatedTodo.id) {
+                return { ...todo, isDone: updatedTodo.isDone }
+              }
+              return todo;
+            })
+          )
+        }
+
+        return { previousTodos }
+      },
+      onError: (error: AxiosError, variables, context) => {
+        dispatch(addMessage({ text: error.message }))
+
+        // rollback previous local state of todos
+        if (context?.previousTodos) {
+          queryClient.setQueryData<TodosArr>(
+            ['todos'],
+            context.previousTodos
+          )
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries(['todos'])
+      }
+    }
+  )
+
   const handleTodoClick = (id: string, isDone: boolean) => {
-    todosAPI.updateTodo({ id, isDone })
-      .then(() => refetch())
-      .catch((e: AxiosError) => {
-        dispatch(addMessage({ text: e.message }))
-      });
+    updateTodoMutation.mutate({ id, isDone });
   }
 
   return (
