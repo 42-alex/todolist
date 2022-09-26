@@ -1,36 +1,16 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { todosAPI } from '../../api/todos-api';
-import { TodosArr } from '../../types';
-import { useDispatch } from 'react-redux';
-import { AxiosError } from 'axios';
-import { addMessage } from '../../redux/messages-reducer';
 import styles from './Home.module.scss';
 import Loader from '../../components/Loader';
 import useUpdateTodo from '../../hooks/useUpdateTodo';
+import useFetchTodos from '../../hooks/useFetchTodos';
 
 
-const Home = (): JSX.Element => {
-  const dispatch = useDispatch();
+const Home = () => {
 
   const {
     data: todos = [],
     isFetching,
-  } = useQuery<TodosArr, AxiosError>(
-    ['todos'],
-    todosAPI.getAllTodos,
-    {
-      onError: (error) => {
-        if (error?.message) {
-          dispatch(addMessage({
-            text: error.message,
-          }));
-        }
-      },
-      refetchOnWindowFocus: false,
-    }
-  );
-
+  } = useFetchTodos();
   const updateTodoMutation = useUpdateTodo();
 
   const handleTodoClick = (id: string, isDone: boolean) => {
