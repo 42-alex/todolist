@@ -7,6 +7,7 @@ import { AxiosError } from 'axios';
 import { addMessage } from '../../redux/messages-reducer';
 import styles from './Home.module.scss';
 import Loader from '../../components/Loader';
+import { importanceTheme } from '../../constants';
 
 
 const Home = (): JSX.Element => {
@@ -42,6 +43,11 @@ const Home = (): JSX.Element => {
               className={styles.todosItem}
             >
               {todo.title}
+              { todo.importance !== 'ordinary'
+                && <div className={`${styles.ribbon} ${styles.ribbonTopRight}`}>
+                  <span style={{backgroundColor: importanceTheme[todo.importance]}}>{todo.importance}</span>
+                </div>
+              }
             </li>
           ))}
         </ul>
