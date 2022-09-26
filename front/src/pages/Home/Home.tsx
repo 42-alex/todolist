@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { todosAPI } from '../../api/todos-api';
 import { TodosArr } from '../../types';
 import { useDispatch } from 'react-redux';
@@ -11,11 +7,11 @@ import { AxiosError } from 'axios';
 import { addMessage } from '../../redux/messages-reducer';
 import styles from './Home.module.scss';
 import Loader from '../../components/Loader';
+import useUpdateTodo from '../../hooks/useUpdateTodo';
 
 
 const Home = (): JSX.Element => {
   const dispatch = useDispatch();
-  const queryClient = useQueryClient();
 
   const {
     data: todos = [],
@@ -35,42 +31,7 @@ const Home = (): JSX.Element => {
     }
   );
 
-  const updateTodoMutation = useMutation(
-    (updatedTodo: {id: string, isDone: boolean}) => todosAPI.updateTodo(updatedTodo),
-    {
-      onMutate: async (updatedTodo: {id: string, isDone: boolean}) => {
-        await queryClient.cancelQueries(['todos']);
-        const previousTodos = queryClient.getQueryData<TodosArr>(['todos']);
-        if (previousTodos) {
-          queryClient.setQueryData<TodosArr>(
-            ['todos'],
-            previousTodos.map(todo => {
-              if (todo.id === updatedTodo.id) {
-                return { ...todo, isDone: updatedTodo.isDone }
-              }
-              return todo;
-            })
-          )
-        }
-
-        return { previousTodos }
-      },
-      onError: (error: AxiosError, variables, context) => {
-        dispatch(addMessage({ text: error.message }))
-
-        // rollback previous local state of todos
-        if (context?.previousTodos) {
-          queryClient.setQueryData<TodosArr>(
-            ['todos'],
-            context.previousTodos
-          )
-        }
-      },
-      onSettled: () => {
-        queryClient.invalidateQueries(['todos'])
-      }
-    }
-  )
+  const updateTodoMutation = useUpdateTodo();
 
   const handleTodoClick = (id: string, isDone: boolean) => {
     updateTodoMutation.mutate({ id, isDone });
