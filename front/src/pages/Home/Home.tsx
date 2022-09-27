@@ -4,6 +4,7 @@ import Loader from '../../components/Loader';
 import { importanceTheme } from '../../constants';
 import useUpdateTodo from '../../hooks/useUpdateTodo';
 import useFetchTodos from '../../hooks/useFetchTodos';
+import { Link } from 'react-router-dom';
 
 
 const Home = () => {
@@ -40,6 +41,8 @@ const Home = () => {
           ))}
         </ul>
       }
+
+      <Link to="/add" className={styles.addButton}>+</Link>
     </div>
   )
 };
