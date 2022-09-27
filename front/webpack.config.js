@@ -28,6 +28,7 @@ module.exports={
    * for browser (client side). Default is "web"
    */
   target: "web",
+  devtool: 'source-map',
   devServer: {
     /** "port"
      * port of dev server

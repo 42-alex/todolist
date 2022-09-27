@@ -3,10 +3,11 @@ import { TodosArr } from '../types';
 import { AxiosError } from 'axios';
 import { todosAPI } from '../api/todos-api';
 import { addMessage } from '../redux/messages-reducer';
-import { useDispatch } from 'react-redux';
+import useAppDispatch from './useAppDispatch';
+
 
 const useFetchTodos = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return useQuery<TodosArr, AxiosError>(
     ['todos'],

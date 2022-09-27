@@ -3,11 +3,11 @@ import { todosAPI } from '../api/todos-api';
 import { TodosArr } from '../types';
 import { AxiosError } from 'axios';
 import { addMessage } from '../redux/messages-reducer';
-import { useDispatch } from 'react-redux';
+import useAppDispatch from './useAppDispatch';
 
 const useUpdateTodo = () => {
   const queryClient = useQueryClient();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return useMutation(
     (updatedTodo: {id: string, isDone: boolean}) => todosAPI.updateTodo(updatedTodo),
