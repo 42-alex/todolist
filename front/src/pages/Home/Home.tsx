@@ -1,48 +1,42 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { todosAPI } from '../../api/todos-api';
-import { TodosArr } from '../../types';
-import { useAppDispatch } from '../../hooks';
-import { AxiosError } from 'axios';
-import { addMessage } from '../../redux/messages-reducer';
 import styles from './Home.module.scss';
 import Loader from '../../components/Loader';
+import { importanceTheme } from '../../constants';
+import useUpdateTodo from '../../hooks/useUpdateTodo';
+import useFetchTodos from '../../hooks/useFetchTodos';
 
 
-const Home = (): JSX.Element => {
-  const dispatch = useAppDispatch();
+const Home = () => {
 
   const {
     data: todos = [],
     isFetching,
-  } = useQuery<TodosArr, AxiosError>(
-    ['todos'],
-    todosAPI.getAllTodos,
-    {
-      onError: (error) => {
-        if (error?.message) {
-          dispatch(addMessage({
-            text: error.message,
-          }));
-        }
-      },
-    }
-  );
+  } = useFetchTodos();
+  const { mutate: updateTodo } = useUpdateTodo();
 
-  if (isFetching) {
-    return <Loader />
+  const handleTodoClick = (id: string, isDone: boolean) => {
+    updateTodo({ id, isDone });
   }
 
   return (
     <div className="container">
+      { isFetching && <Loader /> }
       { todos.length > 0 &&
         <ul className={styles.todosList}>
           {todos.map(todo => (
-            <li key={todo.id}
-              className={styles.todosItem}
-            >
-              {todo.title}
-            </li>
+            <div className={styles.todoWrapper} key={todo.id} onClick={() => handleTodoClick(todo.id, !todo.isDone)}>
+              <span className={styles.checkIcon}>
+                {todo.isDone ? <i>&#9745;</i> : <i>&#9744;</i>}
+              </span>
+              <li className={styles.todoItem}>
+                {todo.title}
+                { todo.importance !== 'ordinary'
+                && <div className={`${styles.ribbon} ${styles.ribbonTopRight}`}>
+                  <span style={{backgroundColor: importanceTheme[todo.importance]}}>{todo.importance}</span>
+                </div>
+                }
+              </li>
+            </div>
           ))}
         </ul>
       }

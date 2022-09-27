@@ -22,10 +22,17 @@ export const todosAPI = {
         return todo;
       })
   },
-  updateTodo(id: number, newTitle: string) {
-    return axiosInstance.put<Todo>(`/todos/${id}`, { title: newTitle })
+  updateTodo(newData: { id: string, title?: string, importance?: string, isDone?: boolean }) {
+    const { id, title, importance, isDone } = newData;
+    return axiosInstance.put<APIResponseType<Todo>>(
+      `/todos/${id}`,
+      {
+        title,
+        importance,
+        isDone
+      })
       .then(response => {
-        const todoDTO = parseTodoDTO(response.data);
+        const todoDTO = parseTodoDTO(response.data.data);
         const todo = fromDTO(todoDTO);
 
         return todo;
@@ -40,8 +47,8 @@ export const todosAPI = {
         return todo;
       })
   },
-  addTodo(title: string) {
-    return axiosInstance.post<Todo>('/todos', { title })
+  addTodo(title: string, importance: string) {
+    return axiosInstance.post<Todo>('/todos', { title, importance })
       .then(response => {
         const todoDTO = parseTodoDTO(response.data);
         const todo = fromDTO(todoDTO);
