@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { delay } from '../helpers';
 import { mockTodos } from '../mocks/data';
-import { Todo } from '../types';
+import { Todo, TodoImportance } from '../types';
 
 
 const getAllTodos = async (req: Request, res: Response) => {
@@ -42,7 +42,7 @@ const updateTodo = async (req: Request, res: Response) => {
 
   // if the tоdo was not found
   if (!todoToUpdate) {
-    const errorMessage: string = `Bad request. Make sure you provided the correct id`;
+    const errorMessage: string = `Bad request. Make sure you provided the correct id`
 
     return res
       .status(400)
@@ -52,6 +52,9 @@ const updateTodo = async (req: Request, res: Response) => {
   // update only props with new data
   if (req.body.title) {
     todoToUpdate.title = req.body.title;
+  }
+  if (req.body.importance) {
+    todoToUpdate.importance = req.body.importance;
   }
   if (req.body.isDone != null) {
     todoToUpdate.isDone = req.body.isDone;
@@ -91,9 +94,10 @@ const deleteTodo = async (req: Request, res: Response) => {
 
 const addTodo = async (req: Request, res: Response) => {
   const newTodoId: string = uuidv4();
-  const newTitle: string = req.body.title;
+  const newTodoTitle: string = req.body.title;
+  const newTodoImportance: TodoImportance = req.body.importance || 'ordinary';
 
-  if (!newTitle) {
+  if (!newTodoTitle) {
     const errorMessage = 'It seems the title you provided is not correct';
 
     return res
@@ -104,7 +108,8 @@ const addTodo = async (req: Request, res: Response) => {
 
   const newTodo: Todo = {
     id: newTodoId,
-    title: newTitle,
+    title: newTodoTitle,
+    importance: newTodoImportance ,
     isDone: false
   }
   mockTodos.push(newTodo)

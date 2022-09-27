@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Home.module.scss';
 import Loader from '../../components/Loader';
+import { importanceTheme } from '../../constants';
 import useUpdateTodo from '../../hooks/useUpdateTodo';
 import useFetchTodos from '../../hooks/useFetchTodos';
 
@@ -29,6 +30,11 @@ const Home = () => {
               </span>
               <li className={styles.todoItem}>
                 {todo.title}
+                { todo.importance !== 'ordinary'
+                && <div className={`${styles.ribbon} ${styles.ribbonTopRight}`}>
+                  <span style={{backgroundColor: importanceTheme[todo.importance]}}>{todo.importance}</span>
+                </div>
+                }
               </li>
             </div>
           ))}

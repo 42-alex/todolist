@@ -1,4 +1,4 @@
-import { Todo, TodoDTO } from '../types'
+import { Todo, TodoDTO, TodoImportanceValues } from '../types'
 
 const parseTodoDTO = (data: {[propName: string]: any}) => {
   // todo: add zod validation - https://github.com/42-alex/todolist/pull/10#discussion_r973626769
@@ -18,6 +18,13 @@ const parseTodoDTO = (data: {[propName: string]: any}) => {
     throw new Error(`There is no "title" key in data source or its type is not a "string"`)
   }
 
+  // check importance
+  if (('importance' in data) && (TodoImportanceValues.includes(data.importance))) {
+    todoDTO.importance = data.importance;
+  } else {
+    throw new Error(`There is no "importance" key in data source or its type is incorrect`)
+  }
+
   // check isDone
   if (('isDone' in data) && (typeof data.isDone === 'boolean')) {
     todoDTO.isDone = data.isDone;
@@ -34,6 +41,7 @@ const fromDTO = (todoDTO: TodoDTO) => {
   const todo = {} as Todo;
   todo.id = todoDTO.id;
   todo.title = todoDTO.title;
+  todo.importance = todoDTO.importance;
   todo.isDone = todoDTO.isDone;
 
   return todo;
@@ -44,6 +52,7 @@ const toDTO = (todo: Todo) => {
   const todoDTO = {} as TodoDTO;
   todoDTO.id = todo.id;
   todoDTO.title = todo.title;
+  todoDTO.importance = todo.importance;
   todoDTO.isDone = todo.isDone;
 
   return todoDTO;
