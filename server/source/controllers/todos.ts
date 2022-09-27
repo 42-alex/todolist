@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { delay } from '../helpers';
 import { mockTodos } from '../mocks/data';
-import { Todo } from '../types';
+import { Todo, TodoImportance } from '../types';
 
 
 const getAllTodos = async (req: Request, res: Response) => {
@@ -38,21 +38,26 @@ const getTodo = async (req: Request, res: Response) => {
 const updateTodo = async (req: Request, res: Response) => {
   await delay(800);
   const id: string = req.params.id;
-  const newTitle: string = req.body.title;
-  const todoToUpdate: Todo | undefined = mockTodos.find(todo => todo.id === id)
+  const todoToUpdate = mockTodos.find(todo => todo.id === id);
 
   // if the tоdo was not found
-  if (!todoToUpdate || !newTitle) {
-    const errorMessage: string = `Bad request. Make sure you provided the correct id and title`
+  if (!todoToUpdate) {
+    const errorMessage: string = `Bad request. Make sure you provided the correct id`
 
     return res
       .status(400)
       .json({ error: { message: errorMessage }})
   }
 
-  // if the tоdo was found
-  if (todoToUpdate) {
-    todoToUpdate.title = newTitle
+  // update only props with new data
+  if (req.body.title) {
+    todoToUpdate.title = req.body.title;
+  }
+  if (req.body.importance) {
+    todoToUpdate.importance = req.body.importance;
+  }
+  if (req.body.isDone != null) {
+    todoToUpdate.isDone = req.body.isDone;
   }
 
   return res
@@ -89,9 +94,10 @@ const deleteTodo = async (req: Request, res: Response) => {
 
 const addTodo = async (req: Request, res: Response) => {
   const newTodoId: string = uuidv4();
-  const newTitle: string = req.body.title;
+  const newTodoTitle: string = req.body.title;
+  const newTodoImportance: TodoImportance = req.body.importance || 'ordinary';
 
-  if (!newTitle) {
+  if (!newTodoTitle) {
     const errorMessage = 'It seems the title you provided is not correct';
 
     return res
@@ -102,7 +108,8 @@ const addTodo = async (req: Request, res: Response) => {
 
   const newTodo: Todo = {
     id: newTodoId,
-    title: newTitle,
+    title: newTodoTitle,
+    importance: newTodoImportance ,
     isDone: false
   }
   mockTodos.push(newTodo)
