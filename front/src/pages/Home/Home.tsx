@@ -11,10 +11,10 @@ const Home = () => {
     data: todos = [],
     isFetching,
   } = useFetchTodos();
-  const updateTodoMutation = useUpdateTodo();
+  const { mutate: updateTodo } = useUpdateTodo();
 
   const handleTodoClick = (id: string, isDone: boolean) => {
-    updateTodoMutation.mutate({ id, isDone });
+    updateTodo({ id, isDone });
   }
 
   return (
