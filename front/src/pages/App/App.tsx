@@ -1,9 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './Header';
-import Footer from './Footer';
 import Home from '../Home';
-import AddItem from '../AddItem';
+import AddItem from '../AddItem/AddItem';
 import EditItem from '../EditItem';
 import NoMatch from '../NoMatch';
 import MessagesBox from '../../components/MessagesBox';
@@ -18,7 +17,6 @@ const App = (): JSX.Element => {
         <Route path="/edit" element={<EditItem />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
-      <Footer />
 
       <MessagesBox />
     </div>
