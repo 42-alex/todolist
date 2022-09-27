@@ -56,7 +56,7 @@ const updateTodo = async (req: Request, res: Response) => {
   if (req.body.importance) {
     todoToUpdate.importance = req.body.importance;
   }
-  if (req.body.isDone) {
+  if (req.body.isDone != null) {
     todoToUpdate.isDone = req.body.isDone;
   }
 
