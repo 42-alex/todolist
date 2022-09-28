@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './AddItem.module.scss';
+import { TodoImportanceValues } from '../../types';
+import { capitalize } from '../../helpers';
 
 const AddItem = () => {
   const handleFormSubmit = (e: React.SyntheticEvent) => {
@@ -19,10 +21,11 @@ const AddItem = () => {
         <div className={styles.formGroup}>
           <label htmlFor="todoImportance">Importance:</label>
           <select id="todoImportance" name="todoImportance">
-            {/*todo: use importanceArr.map to generate options when PR https://github.com/42-alex/todolist/pull/13 will be merged */}
-            <option>Ordinary</option>
-            <option>Important</option>
-            <option>Urgent</option>
+            { TodoImportanceValues.map(importanceTitle =>
+              <option key={importanceTitle} value={importanceTitle}>
+                {capitalize(importanceTitle)}
+              </option>
+            )}
           </select>
         </div>
         <button className={styles.submitButton}>Add</button>

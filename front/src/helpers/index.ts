@@ -58,9 +58,12 @@ const toDTO = (todo: Todo) => {
   return todoDTO;
 }
 
+const capitalize = (str: string) => str.replace(str[0], str[0].toUpperCase());
+
 
 export {
   parseTodoDTO,
   fromDTO,
-  toDTO
+  toDTO,
+  capitalize,
 }
