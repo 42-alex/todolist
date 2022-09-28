@@ -1,9 +1,15 @@
 import React, { useRef } from 'react';
 import styles from './AddItem.module.scss';
-import { TodoImportanceValues } from '../../types';
+import useAddTodo from '../../hooks/useAddTodo';
+import {
+  TodoImportance,
+  TodoImportanceValues,
+  TodoToCreate,
+} from '../../types';
 import { capitalize } from '../../helpers';
 
 const AddItem = () => {
+  const { mutate: addTodo } = useAddTodo(resetForm);
   const addFormRef = useRef<HTMLFormElement>(null);
 
   function resetForm()  {
@@ -13,7 +19,12 @@ const AddItem = () => {
   const handleFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const target = e.target as HTMLFormElement;
-    const objectOfFields = Object.fromEntries(new FormData(target));
+    const formFields = Object.fromEntries(new FormData(target)) as {[k: string]: string} ;
+    const newTodo: TodoToCreate = {
+      title: formFields.todoTitle,
+      importance: formFields.todoImportance as TodoImportance,
+    }
+    addTodo(newTodo);
   }
 
   return (

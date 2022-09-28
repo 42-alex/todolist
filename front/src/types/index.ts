@@ -7,6 +7,7 @@ interface Todo {
   importance: TodoImportance
   isDone: boolean
 }
+interface TodoToCreate extends Omit<Todo, 'id' | 'isDone'> {}
 
 interface TodoDTO extends Todo {}
 
@@ -14,7 +15,8 @@ interface TodosArr extends Array<Todo> {}
 
 export type {
   Todo,
+  TodoToCreate,
   TodosArr,
   TodoDTO,
-  TodoImportance
+  TodoImportance,
 }
