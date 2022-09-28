@@ -93,6 +93,7 @@ const deleteTodo = async (req: Request, res: Response) => {
 
 
 const addTodo = async (req: Request, res: Response) => {
+  await delay(800);
   const newTodoId: string = uuidv4();
   const newTodoTitle: string = req.body.title;
   const newTodoImportance: TodoImportance = req.body.importance || 'ordinary';
