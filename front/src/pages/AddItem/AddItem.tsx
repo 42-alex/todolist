@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './AddItem.module.scss';
 import { TodoImportanceValues } from '../../types';
 import { capitalize } from '../../helpers';
 
 const AddItem = () => {
+  const addFormRef = useRef<HTMLFormElement>(null);
+
+  function resetForm()  {
+    addFormRef?.current?.reset();
+  }
+
   const handleFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const target = e.target as HTMLFormElement;
@@ -13,7 +19,7 @@ const AddItem = () => {
   return (
     <div className={`container ${styles.pageWrapper}`}>
       <h1 className={styles.pageTitle}>Add new todo</h1>
-      <form onSubmit={handleFormSubmit} className={styles.addForm}>
+      <form onSubmit={handleFormSubmit} className={styles.addForm} ref={addFormRef}>
         <div className={styles.formGroup}>
           <label htmlFor="todoTitle">Title:</label>
           <input type="text" id="todoTitle" name="todoTitle" minLength={2} maxLength={130} required />
