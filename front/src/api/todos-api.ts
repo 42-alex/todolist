@@ -47,10 +47,10 @@ export const todosAPI = {
         return todo;
       })
   },
-  addTodo(title: string, importance: string) {
-    return axiosInstance.post<Todo>('/todos', { title, importance })
+  addTodo(newTodo: { title: string, importance: string }) {
+    return axiosInstance.post<APIResponseType<Todo>>('/todos', newTodo)
       .then(response => {
-        const todoDTO = parseTodoDTO(response.data);
+        const todoDTO = parseTodoDTO(response.data.data);
         const todo = fromDTO(todoDTO);
 
         return todo;

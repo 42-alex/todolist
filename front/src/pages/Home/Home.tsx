@@ -42,7 +42,11 @@ const Home = () => {
         </ul>
       }
 
-      <Link to="/add" className={styles.addButton}>+</Link>
+      <Link
+        to="/add"
+        className={styles.addButton}
+        title="Add new todo"
+      >+</Link>
     </div>
   )
 };

@@ -101,6 +101,7 @@
   background-color: cadetblue;
   cursor: pointer;
   transition: all .5s;
+  z-index: 9999;
 
   &:hover {
     transform: scale(1.03);

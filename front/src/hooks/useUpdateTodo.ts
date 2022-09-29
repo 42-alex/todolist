@@ -30,7 +30,7 @@ const useUpdateTodo = () => {
         return { previousTodos }
       },
       onError: (error: AxiosError, variables, context) => {
-        dispatch(addMessage({ text: error.message }))
+        dispatch(addMessage({ text: `${error.message}. Todo was not updated` }))
 
         // rollback previous local state of todos
         if (context?.previousTodos) {
