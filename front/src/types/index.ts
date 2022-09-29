@@ -1,5 +1,6 @@
-export const TodoImportanceValues = ['ordinary', 'important', 'urgent'] as const;
-type TodoImportance = typeof TodoImportanceValues[number];
+import { importanceValues } from '../constants';
+
+type TodoImportance = keyof typeof importanceValues;  // 'ordinary' | 'important' | 'urgent'
 
 interface Todo {
   id: string

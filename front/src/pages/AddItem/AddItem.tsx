@@ -3,10 +3,9 @@ import styles from './AddItem.module.scss';
 import useAddTodo from '../../hooks/useAddTodo';
 import {
   TodoImportance,
-  TodoImportanceValues,
   TodoToCreate,
 } from '../../types';
-import { capitalize } from '../../helpers';
+import { importanceValues } from '../../constants';
 
 const AddItem = () => {
   const { mutate: addTodo } = useAddTodo(resetForm);
@@ -38,11 +37,14 @@ const AddItem = () => {
         <div className={styles.formGroup}>
           <label htmlFor="todoImportance">Importance:</label>
           <select id="todoImportance" name="todoImportance">
-            { TodoImportanceValues.map(importanceTitle =>
-              <option key={importanceTitle} value={importanceTitle}>
-                {capitalize(importanceTitle)}
-              </option>
-            )}
+            { Object.entries(importanceValues)
+              .map(
+                ([importanceKey, importanceTitle]) =>
+                  <option key={importanceKey} value={importanceKey}>
+                    {importanceTitle}
+                  </option>
+              )
+            }
           </select>
         </div>
         <button className={styles.submitButton}>Add</button>
