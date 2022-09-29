@@ -10,7 +10,7 @@ import Loader from '../../components/Loader';
 
 const AddItem = () => {
   const {
-    mutate: addTodo,
+    mutateAsync: addTodo,
     isLoading
   } = useAddTodo();
   const addFormRef = useRef<HTMLFormElement>(null);
@@ -27,7 +27,7 @@ const AddItem = () => {
       title: formFields.todoTitle,
       importance: formFields.todoImportance as TodoImportance,
     }
-    addTodo(newTodo, { onSettled: resetForm })
+    addTodo(newTodo).then(resetForm);
   }
 
   return (
