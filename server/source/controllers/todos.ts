@@ -1,13 +1,10 @@
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { delay } from '../helpers';
 import { mockTodos } from '../mocks/data';
 import { Todo, TodoImportance } from '../types';
 
 
 const getAllTodos = async (req: Request, res: Response) => {
-  await delay(800);
-
   return res
     .status(200)
     .json({ data: mockTodos, meta: null })
@@ -15,7 +12,6 @@ const getAllTodos = async (req: Request, res: Response) => {
 
 
 const getTodo = async (req: Request, res: Response) => {
-  await delay(800);
   const id: string = req.params.id;
   let requestedTodo: Todo | undefined = mockTodos.find(todo => todo.id === id);
 
@@ -36,7 +32,6 @@ const getTodo = async (req: Request, res: Response) => {
 
 
 const updateTodo = async (req: Request, res: Response) => {
-  await delay(800);
   const id: string = req.params.id;
   const todoToUpdate = mockTodos.find(todo => todo.id === id);
 
@@ -67,7 +62,6 @@ const updateTodo = async (req: Request, res: Response) => {
 
 
 const deleteTodo = async (req: Request, res: Response) => {
-  await delay(800);
   const id: string = req.params.id;
   const todoToDelete: Todo | undefined = mockTodos.find(todo => todo.id === id);
 
@@ -93,7 +87,6 @@ const deleteTodo = async (req: Request, res: Response) => {
 
 
 const addTodo = async (req: Request, res: Response) => {
-  await delay(800);
   const newTodoId: string = uuidv4();
   const newTodoTitle: string = req.body.title;
   const newTodoImportance: TodoImportance = req.body.importance || 'ordinary';
@@ -105,7 +98,6 @@ const addTodo = async (req: Request, res: Response) => {
       .status(400)
       .json({ error: { message: errorMessage } })
   }
-
 
   const newTodo: Todo = {
     id: newTodoId,
