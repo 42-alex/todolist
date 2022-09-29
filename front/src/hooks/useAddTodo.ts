@@ -5,7 +5,7 @@ import useAppDispatch from './useAppDispatch';
 import { addMessage } from '../redux/messages-reducer';
 import { AxiosError } from 'axios';
 
-const useAddTodo = (resetForm: () => void) => {
+const useAddTodo = () => {
   const queryClient = useQueryClient();
   const dispatch = useAppDispatch();
 
@@ -44,9 +44,8 @@ const useAddTodo = (resetForm: () => void) => {
         dispatch(addMessage({
           type: 'success',
           text: `Todo ${todoName} was successfully added`
-        }))
-        queryClient.invalidateQueries(['todos'])
-        resetForm();
+        }));
+        queryClient.invalidateQueries(['todos']);
       },
     }
   )

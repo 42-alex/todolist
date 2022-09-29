@@ -8,10 +8,10 @@ import {
 import { importanceValues } from '../../constants';
 
 const AddItem = () => {
-  const { mutate: addTodo } = useAddTodo(resetForm);
+  const { mutate: addTodo } = useAddTodo();
   const addFormRef = useRef<HTMLFormElement>(null);
 
-  function resetForm()  {
+  const resetForm = () => {
     addFormRef?.current?.reset();
   }
 
@@ -23,7 +23,7 @@ const AddItem = () => {
       title: formFields.todoTitle,
       importance: formFields.todoImportance as TodoImportance,
     }
-    addTodo(newTodo);
+    addTodo(newTodo, { onSettled: resetForm })
   }
 
   return (
