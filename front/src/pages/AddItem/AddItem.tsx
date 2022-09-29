@@ -6,9 +6,13 @@ import {
   TodoToCreate,
 } from '../../types';
 import { importanceValues } from '../../constants';
+import Loader from '../../components/Loader';
 
 const AddItem = () => {
-  const { mutate: addTodo } = useAddTodo();
+  const {
+    mutate: addTodo,
+    isLoading
+  } = useAddTodo();
   const addFormRef = useRef<HTMLFormElement>(null);
 
   const resetForm = () => {
@@ -28,6 +32,8 @@ const AddItem = () => {
 
   return (
     <div className={`container ${styles.pageWrapper}`}>
+      { isLoading && <Loader /> }
+
       <h1 className={styles.pageTitle}>Add new todo</h1>
       <form onSubmit={handleFormSubmit} className={styles.addForm} ref={addFormRef}>
         <div className={styles.formGroup}>
