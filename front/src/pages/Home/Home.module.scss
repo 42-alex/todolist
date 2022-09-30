@@ -4,21 +4,20 @@
   margin: 0 auto;
 }
 
-.todoWrapper {
+.todoItem {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.todoItemContent {
   position: relative;
+  flex-basis: 88%;
+  padding: 10px;
   box-shadow: 0 0 5px 0 rgb(0 0 0 / 15%);
   border-radius: 5px;
   cursor: pointer;
   transition: all .5s ease;
-
-  &:hover {
-    transform: scale(1.03);
-  }
-}
-
-.todoItem {
-  padding: 10px;
-  margin-top: 15px;
 }
 
 .checkIcon {
@@ -31,7 +30,7 @@
 }
 
 
-/* ribbon styles */
+/* ribbon styles begin */
 .ribbon {
   width: 85px;
   height: 44px;
@@ -83,6 +82,7 @@
   top: 13px;
   transform: rotate(25deg);
 }
+/* ribbon styles end */
 
 /* Add page */
 .addButton {
@@ -105,5 +105,29 @@
 
   &:hover {
     transform: scale(1.03);
+  }
+}
+
+.todoItemActions {
+  margin-left: 10px;
+}
+
+.todoItemActions button {
+  font-size: 17px;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &.editButton {
+    transform: rotate(90deg);
+    background-color: #28a745;
+  }
+
+  &.deleteButton {
+    background-color: #dc3545;
   }
 }
