@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './Header';
 import Home from '../Home';
 import AddItem from '../AddItem';
-import EditItem from '../EditItem';
+import EditItem from '../EditItem/EditItems';
 import NoMatch from '../NoMatch';
 import MessagesBox from '../../components/MessagesBox';
 
