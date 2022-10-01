@@ -1,3 +1,6 @@
+// file was renamed from "EditItem.tsx" to "EditItems.tsx"
+// cause: typescript didn't work if we had the previous name
+
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import styles from './EditItem.module.scss';
