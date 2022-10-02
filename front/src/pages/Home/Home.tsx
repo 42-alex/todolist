@@ -5,6 +5,10 @@ import { importanceTheme } from '../../constants';
 import useUpdateTodo from '../../hooks/useUpdateTodo';
 import useFetchTodos from '../../hooks/useFetchTodos';
 import { Link, useNavigate } from 'react-router-dom';
+import CheckedIcon from '../../components/Icons/CheckedIcon';
+import UncheckedIcon from '../../components/Icons/UncheckedIcon';
+import PencilIcon from '../../components/Icons/PencilIcon';
+import BallotXIcon from '../../components/Icons/BallotXIcon';
 
 
 const Home = () => {
@@ -30,7 +34,7 @@ const Home = () => {
               <li className={styles.todoItem}>
                 <div className={styles.todoItemContent}>
                   <span className={styles.checkIcon}>
-                    {todo.isDone ? <i>&#9745;</i> : <i>&#9744;</i>}
+                    {todo.isDone ? <CheckedIcon /> : <UncheckedIcon />}
                   </span>
                   <div className="todoTitle">
                     {todo.title}
@@ -46,11 +50,15 @@ const Home = () => {
                     className={styles.editButton}
                     title="Edit todo"
                     onClick={() => navigate(`/edit/${todo.id}`)}
-                  >&#9998;</button>
+                  >
+                    <PencilIcon />
+                  </button>
                   <button
                     className={styles.deleteButton}
                     title="Delete todo"
-                  >&#10008;</button>
+                  >
+                    <BallotXIcon />
+                  </button>
                 </div>
               </li>
             </div>
