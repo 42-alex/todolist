@@ -33,13 +33,10 @@ const EditItem = () => {
       })
   }
 
-  function handleInputChange (e: React.ChangeEvent<HTMLInputElement>) {
-    const newValue = e.target.type === 'checkbox'
-      ? e.target.checked
-      : e.target.value;
+  function handleTitleChange (e: React.ChangeEvent<HTMLInputElement>) {
     setTodoState({
       ...todoState,
-      [e.target.name]: newValue
+      title: e.target.value
     });
   }
 
@@ -47,6 +44,13 @@ const EditItem = () => {
     setTodoState({
       ...todoState,
       importance: e.target.value,
+    });
+  }
+
+  function handleIsDoneChange (e: React.ChangeEvent<HTMLInputElement>) {
+    setTodoState({
+      ...todoState,
+      isDone: e.target.checked
     });
   }
 
@@ -66,7 +70,7 @@ const EditItem = () => {
               id="todoTitle"
               name="title"
               value={todoState.title}
-              onChange={handleInputChange}
+              onChange={handleTitleChange}
               minLength={2}
               maxLength={130}
               required
@@ -96,7 +100,7 @@ const EditItem = () => {
               id="todoIsDone"
               name="isDone"
               checked={todoState.isDone}
-              onChange={handleInputChange}
+              onChange={handleIsDoneChange}
             />
             <label htmlFor="todoIsDone">Is todo done</label>
           </div>
