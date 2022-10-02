@@ -14,10 +14,7 @@ const App = (): JSX.Element => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/add" element={<AddItem />} />
-        <Route path="/edit">
-          <Route index element={<EditItem />} />
-          <Route path=":todoId" element={<EditItem />} />
-        </Route>
+        <Route path="/edit/:todoId" element={<EditItem />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
 

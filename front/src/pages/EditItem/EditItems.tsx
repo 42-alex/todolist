@@ -1,8 +1,8 @@
 // file was renamed from "EditItem.tsx" to "EditItems.tsx"
 // cause: typescript didn't work if we had the previous name
 
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './EditItem.module.scss';
 import useFetchTodos from '../../hooks/useFetchTodos';
 import { importanceValues } from '../../constants';
@@ -20,24 +20,6 @@ const EditItem = () => {
     isDone: currentTodo?.isDone || false,
   })
   const navigate = useNavigate();
-
-  let pageTitle: string;
-  let pageContent: JSX.Element;
-  if (currentTodo) {
-    pageTitle = 'Edit your todo';
-    pageContent = getEditForm();
-  } else {
-    pageTitle = 'Chose todo to edit';
-    pageContent = getTodosList();
-  }
-
-  useEffect(() => {
-    setTodoState({
-      title: currentTodo?.title || '',
-      importance: currentTodo?.importance || '',
-      isDone: currentTodo?.isDone || false,
-    });
-  }, [todoId]);
 
   function handleFormSubmit (e: React.FormEvent) {
     e.preventDefault();
@@ -69,11 +51,12 @@ const EditItem = () => {
   }
 
   function handleBackButtonClick () {
-    navigate('/edit');
+    navigate('/');
   }
 
-  function getEditForm() {
-    return (
+  return (
+    <div className="container">
+      <h1 className={styles.pageTitle}>Edit your todo</h1>
       <div className={styles.editFormWrapper}>
         <form onSubmit={handleFormSubmit} className={styles.editForm}>
           <div className={styles.formGroup}>
@@ -127,30 +110,6 @@ const EditItem = () => {
           </div>
         </form>
       </div>
-    )
-  }
-
-  function getTodosList () {
-    return (
-      <div className={styles.todoListWrapper}>
-        <ul className={styles.todoList}>
-          { todos.map(todo => (
-            <li key={todo.id} >
-              <Link to={`/edit/${todo.id}`} className={styles.todoLink}>
-                { todo.title }
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
-
-
-  return (
-    <div className="container">
-      <h1 className={styles.pageTitle}>{pageTitle}</h1>
-      {pageContent}
     </div>
   )
 }
