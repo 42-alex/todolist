@@ -24,6 +24,11 @@ const Home = () => {
     updateTodo({ id, isDone });
   }
 
+  const handleEditButtonClick = (ev: React.MouseEvent<HTMLButtonElement>, todoId: string) => {
+    ev.stopPropagation();
+    navigate(`/edit/${todoId}`);
+  }
+
   return (
     <div className="container">
       { isFetching && <Loader /> }
@@ -49,7 +54,7 @@ const Home = () => {
                   <button
                     className={styles.editButton}
                     title="Edit todo"
-                    onClick={() => navigate(`/edit/${todo.id}`)}
+                    onClick={(ev) => handleEditButtonClick(ev, todo.id)}
                   >
                     <PencilIcon />
                   </button>
