@@ -4,6 +4,7 @@ import Loader from '../../components/Loader';
 import { importanceTheme } from '../../constants';
 import useUpdateTodo from '../../hooks/useUpdateTodo';
 import useFetchTodos from '../../hooks/useFetchTodos';
+import useDeleteTodo from '../../hooks/useDeleteTodo';
 import { Link, useNavigate } from 'react-router-dom';
 import CheckedIcon from '../../components/Icons/CheckedIcon';
 import UncheckedIcon from '../../components/Icons/UncheckedIcon';
@@ -18,6 +19,7 @@ const Home = () => {
     isFetching,
   } = useFetchTodos();
   const { mutate: updateTodo } = useUpdateTodo();
+  const { mutate: deleteTodo } = useDeleteTodo();
   const navigate = useNavigate()
 
   const handleTodoClick = (id: string, isDone: boolean) => {
@@ -27,6 +29,11 @@ const Home = () => {
   const handleEditButtonClick = (ev: React.MouseEvent<HTMLButtonElement>, todoId: string) => {
     ev.stopPropagation();
     navigate(`/edit/${todoId}`);
+  }
+
+  const handleDeleteButtonClick = (ev: React.MouseEvent<HTMLButtonElement>, todoId: string) => {
+    ev.stopPropagation();
+    deleteTodo(todoId);
   }
 
   return (
@@ -61,6 +68,7 @@ const Home = () => {
                   <button
                     className={styles.deleteButton}
                     title="Delete todo"
+                    onClick={(ev) => handleDeleteButtonClick(ev, todo.id)}
                   >
                     <BallotXIcon />
                   </button>
