@@ -13,7 +13,6 @@ const Header = (): JSX.Element => {
         <span className={styles.siteMenu}>
           <NavLink to="/" className={styles.siteMenuLink}>Home</NavLink>
           <NavLink to="/add" className={styles.siteMenuLink}>Add Todo</NavLink>
-          <NavLink to="/edit" className={styles.siteMenuLink}>Edit Todo</NavLink>
         </span>
       </nav>
     </header>

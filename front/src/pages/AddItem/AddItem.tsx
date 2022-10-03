@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import styles from './AddItem.module.scss';
 import useAddTodo from '../../hooks/useAddTodo';
 import {
@@ -8,24 +8,32 @@ import {
 import { importanceValues } from '../../constants';
 import Loader from '../../components/Loader';
 
+const initialValues = {
+  todoTitle: '',
+  todoImportance: Object.keys(importanceValues)[0],
+}
+
 const AddItem = () => {
+  const [todoTitle, setTodoTitle] = useState(initialValues.todoTitle);
+  const [todoImportance, setTodoImportance] = useState(initialValues.todoImportance);
   const {
     mutateAsync: addTodo,
     isLoading
   } = useAddTodo();
-  const addFormRef = useRef<HTMLFormElement>(null);
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => setTodoTitle(e.target.value)
+  const handleImportanceChange = (e: React.ChangeEvent<HTMLSelectElement>) => setTodoImportance(e.target.value)
 
   const resetForm = () => {
-    addFormRef?.current?.reset();
+    setTodoTitle(initialValues.todoTitle);
+    setTodoImportance(initialValues.todoImportance);
   }
 
-  const handleFormSubmit = (e: React.SyntheticEvent) => {
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const target = e.target as HTMLFormElement;
-    const formFields = Object.fromEntries(new FormData(target)) as {[k: string]: string} ;
     const newTodo: TodoToCreate = {
-      title: formFields.todoTitle,
-      importance: formFields.todoImportance as TodoImportance,
+      title: todoTitle,
+      importance: todoImportance as TodoImportance,
     }
     addTodo(newTodo).then(resetForm);
   }
@@ -35,14 +43,26 @@ const AddItem = () => {
       { isLoading && <Loader /> }
 
       <h1 className={styles.pageTitle}>Add new todo</h1>
-      <form onSubmit={handleFormSubmit} className={styles.addForm} ref={addFormRef}>
+      <form onSubmit={handleFormSubmit} className={styles.addForm}>
         <div className={styles.formGroup}>
           <label htmlFor="todoTitle">Title:</label>
-          <input type="text" id="todoTitle" name="todoTitle" minLength={2} maxLength={130} required />
+          <input
+            type="text"
+            id="todoTitle"
+            value={todoTitle}
+            onChange={handleTitleChange}
+            minLength={2}
+            maxLength={130}
+            required
+          />
         </div>
         <div className={styles.formGroup}>
           <label htmlFor="todoImportance">Importance:</label>
-          <select id="todoImportance" name="todoImportance">
+          <select
+            id="todoImportance"
+            value={todoImportance}
+            onChange={handleImportanceChange}
+          >
             { Object.entries(importanceValues)
               .map(
                 ([importanceKey, importanceTitle]) =>
