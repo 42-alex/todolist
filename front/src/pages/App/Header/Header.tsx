@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Header.module.scss';
 import { NavLink } from 'react-router-dom';
+import logo from '../../../logo.png';
 
 const Header = (): JSX.Element => {
 
@@ -8,7 +9,9 @@ const Header = (): JSX.Element => {
     <header className={styles.header}>
       <nav className={`${styles.headerNav} container`}>
         <span className={styles.siteLogo}>
-          <a href="#" className={styles.siteLogoLink}>Logo</a>
+          <NavLink to="/" className={styles.siteLogoLink}>
+            <img src={logo} alt="logo" title="Go to home page" />
+          </NavLink>
         </span>
         <span className={styles.siteMenu}>
           <NavLink to="/" className={styles.siteMenuLink}>Home</NavLink>
