@@ -19,10 +19,9 @@ body {
 	font-family: 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	font-size: '16px';
+	font-size: 16px;
 	line-height: 1.35;
 }
-
 a {
 	color: #4fc3f6;
 	text-decoration: none;
@@ -47,4 +46,10 @@ a {
   max-width: 1536px;
   padding: 0 10px;
   margin: 0 auto;
+}
+.pageTitle {
+	font-size: 28px;
+	text-align: center;
+	margin-top: 15px;
+	margin-bottom: 15px;
 }

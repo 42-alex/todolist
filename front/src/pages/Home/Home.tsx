@@ -27,6 +27,8 @@ const Home = () => {
   return (
     <div className="container">
       { isFetching && <Loader /> }
+
+      <h1 className="pageTitle">To-do list</h1>
       { todos.length > 0 &&
         <ul className={styles.todosList}>
           {todos.map(todo => (
