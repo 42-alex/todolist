@@ -3,7 +3,7 @@ import styles from './Header.module.scss';
 import { NavLink } from 'react-router-dom';
 import logo from '../../../logo.png';
 
-const Header = (): JSX.Element => {
+const Header = () => {
 
   return (
     <header className={styles.header}>
