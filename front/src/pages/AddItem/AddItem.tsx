@@ -42,7 +42,7 @@ const AddItem = () => {
     <div className={`container ${styles.pageWrapper}`}>
       { isLoading && <Loader /> }
 
-      <h1 className={styles.pageTitle}>Add new todo</h1>
+      <h1 className="pageTitle">Add new todo</h1>
       <form onSubmit={handleFormSubmit} className={styles.addForm}>
         <div className={styles.formGroup}>
           <label htmlFor="todoTitle">Title:</label>
