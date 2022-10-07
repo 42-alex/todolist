@@ -23,7 +23,7 @@ const TodoListItem = ({ todo, onClick, onEdit, onDelete }: ITodoListItem) => {
   const handleItemDelete = () => onDelete(todo.id);
 
   return (
-    <div className={styles.todoWrapper} key={todo.id}>
+    <div className={styles.todoWrapper}>
       <li className={styles.todoItem}>
         <div className={styles.todoItemContent} onClick={handleItemClick}>
                   <span className={styles.checkIcon}>
