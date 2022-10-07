@@ -10,11 +10,22 @@ import styles from './TodoListItem.module.scss';
 interface ITodoListItem {
   todo: Todo
   onClick: (id: string, isDone: boolean) => void
-  onEdit: (ev: React.MouseEvent<HTMLButtonElement>, todoId: string) => void
-  onDelete: (ev: React.MouseEvent<HTMLButtonElement>, todoId: string) => void
+  onEdit: (todoId: string) => void
+  onDelete: (todoId: string) => void
 }
 
 const TodoListItem = ({ todo, onClick, onEdit, onDelete }: ITodoListItem) => {
+
+  const onItemEdit = (ev: React.MouseEvent<HTMLButtonElement>) => {
+    ev.stopPropagation();
+    onEdit(todo.id);
+  }
+
+  const onItemDelete = (ev: React.MouseEvent<HTMLButtonElement>) => {
+    ev.stopPropagation();
+    onDelete(todo.id);
+  }
+
   return (
     <div className={styles.todoWrapper} key={todo.id} onClick={() => onClick(todo.id, !todo.isDone)}>
       <li className={styles.todoItem}>
@@ -35,14 +46,14 @@ const TodoListItem = ({ todo, onClick, onEdit, onDelete }: ITodoListItem) => {
           <button
             className={styles.editButton}
             title="Edit todo"
-            onClick={(ev) => onEdit(ev, todo.id)}
+            onClick={onItemEdit}
           >
             <PencilIcon />
           </button>
           <button
             className={styles.deleteButton}
             title="Delete todo"
-            onClick={(ev) => onDelete(ev, todo.id)}
+            onClick={onItemDelete}
           >
             <BallotXIcon />
           </button>

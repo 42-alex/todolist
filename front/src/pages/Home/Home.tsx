@@ -22,13 +22,11 @@ const Home = () => {
     updateTodo({ id, isDone });
   }
 
-  const handleEditButtonClick = (ev: React.MouseEvent<HTMLButtonElement>, todoId: string) => {
-    ev.stopPropagation();
+  const handleEditButtonClick = (todoId: string) => {
     navigate(`/edit/${todoId}`);
   }
 
-  const handleDeleteButtonClick = (ev: React.MouseEvent<HTMLButtonElement>, todoId: string) => {
-    ev.stopPropagation();
+  const handleDeleteButtonClick = (todoId: string) => {
     deleteTodo(todoId);
   }
 
