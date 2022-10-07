@@ -39,6 +39,7 @@ const Home = () => {
         <ul className={styles.todosList}>
           {todos.map(todo => (
             <TodoListItem
+              key={todo.id}
               todo={todo}
               onClick={handleTodoClick}
               onEdit={handleEditButtonClick}
