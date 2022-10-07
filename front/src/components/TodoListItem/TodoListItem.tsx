@@ -16,20 +16,16 @@ interface ITodoListItem {
 
 const TodoListItem = ({ todo, onClick, onEdit, onDelete }: ITodoListItem) => {
 
-  const onItemEdit = (ev: React.MouseEvent<HTMLButtonElement>) => {
-    ev.stopPropagation();
-    onEdit(todo.id);
-  }
+  const handleItemClick = () => onClick(todo.id, !todo.isDone);
 
-  const onItemDelete = (ev: React.MouseEvent<HTMLButtonElement>) => {
-    ev.stopPropagation();
-    onDelete(todo.id);
-  }
+  const handleItemEdit = () => onEdit(todo.id);
+
+  const handleItemDelete = () => onDelete(todo.id);
 
   return (
-    <div className={styles.todoWrapper} key={todo.id} onClick={() => onClick(todo.id, !todo.isDone)}>
+    <div className={styles.todoWrapper} key={todo.id}>
       <li className={styles.todoItem}>
-        <div className={styles.todoItemContent}>
+        <div className={styles.todoItemContent} onClick={handleItemClick}>
                   <span className={styles.checkIcon}>
                     {todo.isDone ? <CheckedIcon /> : <UncheckedIcon />}
                   </span>
@@ -46,14 +42,14 @@ const TodoListItem = ({ todo, onClick, onEdit, onDelete }: ITodoListItem) => {
           <button
             className={styles.editButton}
             title="Edit todo"
-            onClick={onItemEdit}
+            onClick={handleItemEdit}
           >
             <PencilIcon />
           </button>
           <button
             className={styles.deleteButton}
             title="Delete todo"
-            onClick={onItemDelete}
+            onClick={handleItemDelete}
           >
             <BallotXIcon />
           </button>
