@@ -1,4 +1,4 @@
-import styles from '../pages/Home/Home.module.scss';
+import styles from './TodoListItem.module.scss';
 import CheckedIcon from './../Icons/CheckedIcon';
 import UncheckedIcon from './../Icons/UncheckedIcon';
 import { importanceTheme } from '../../constants';
