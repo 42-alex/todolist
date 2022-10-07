@@ -1,11 +1,11 @@
-import styles from './TodoListItem.module.scss';
+import React from 'react';
 import CheckedIcon from './../Icons/CheckedIcon';
 import UncheckedIcon from './../Icons/UncheckedIcon';
-import { importanceTheme } from '../../constants';
 import PencilIcon from './../Icons/PencilIcon';
 import BallotXIcon from './../Icons/BallotXIcon';
-import React from 'react';
 import { Todo } from '../../types';
+import { importanceTheme } from '../../constants';
+import styles from './TodoListItem.module.scss';
 
 interface ITodoListItem {
   todo: Todo
