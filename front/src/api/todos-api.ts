@@ -38,10 +38,10 @@ export const todosAPI = {
         return todo;
       })
   },
-  deleteTodo(id: number) {
-    return axiosInstance.delete<Todo>(`/todos/${id}`)
+  deleteTodo(id: string) {
+    return axiosInstance.delete<APIResponseType<Todo>>(`/todos/${id}`)
       .then(response => {
-        const todoDTO = parseTodoDTO(response.data);
+        const todoDTO = parseTodoDTO(response.data.data);
         const todo = fromDTO(todoDTO);
 
         return todo;
