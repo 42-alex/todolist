@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import { InferActionsTypes } from './store';
 
@@ -12,8 +12,8 @@ export type MessageType = {
 }
 
 type addMessagePayload = {
-  type?: MessageTypesType
-  text?: string
+  type: MessageTypesType
+  text: string
   showTime?: number
 }
 
@@ -21,10 +21,10 @@ export const messageSlice = createSlice({
   name: 'messages',
   initialState: [] as MessageType[],
   reducers: {
-    addMessage: (state, action: { payload: MessageType }) => {
+    addMessage: (state, action: PayloadAction<MessageType>) => {
       return state.concat(action.payload);
     },
-    removeMessage: (state, action: {payload: {messageId: string}}) => {
+    removeMessage: (state, action: PayloadAction<{messageId: string}>) => {
       return state.filter(message => message.id !== action.payload.messageId)
     }
   }
