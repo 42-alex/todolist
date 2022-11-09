@@ -10,7 +10,7 @@ interface IMessage {
 const Message = ({ message, onClose }: IMessage) => {
 
   return (
-    <div className={`${styles.message} ${styles[message.type]}`}>
+    <div className={`${styles.message} ${styles[message.type]}`} role="message">
       <div>{message.text}</div>
       <button className={styles.closeButton} onClick={() => onClose(message.id)}>
         <svg className={styles.closeIcon} viewBox="0 0 24 24">
