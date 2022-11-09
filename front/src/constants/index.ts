@@ -18,10 +18,13 @@ const iconSymbols = {
   uncheckedIcon: '☐',
 }
 
+const loaderWord = 'loading';
+
 export {
   baseApiUrl,
   importanceTheme,
   importanceValues,
   iconSymbols,
+  loaderWord,
 }
 
