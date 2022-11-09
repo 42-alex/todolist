@@ -7,7 +7,7 @@ import { Todo } from '../../types';
 import { importanceTheme } from '../../constants';
 import styles from './TodoListItem.module.scss';
 
-interface ITodoListItem {
+export interface ITodoListItem {
   todo: Todo
   onClick: (id: string, isDone: boolean) => void
   onEdit: (todoId: string) => void
