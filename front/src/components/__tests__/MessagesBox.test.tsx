@@ -4,35 +4,18 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import MessageBox from '../MessagesBox';
 import { configureStore } from '@reduxjs/toolkit';
-import messagesReducer from '../../redux/messages-reducer';
-import type { MessageType } from '../../redux/messages-reducer';
-import { RootStateType } from '../../redux/store';
+import messagesReducer, { addMessage } from '../../redux/messages-reducer';
+import { StoreType } from '../../redux/store';
 
 
-const initialMessages: MessageType[] = [
-  {
-    id: 'id1',
-    type: 'info',
-    text: 'some simple message',
-    showTime: 0,
-  },
-  {
-    id: 'id2',
-    type: 'error',
-    text: 'network error',
-    showTime: 0,
-  },
-];
+const createTestStore = () => configureStore({
+  reducer: { messages: messagesReducer },
+});
 
 const renderWithReduxProvider = (
   ui: React.ReactElement,
-  preloadedState: Partial<RootStateType> = {}
+  store: StoreType = createTestStore()
 ) => {
-
-  const store = configureStore({
-    reducer: { messages: messagesReducer },
-    preloadedState
-  });
 
   return render(
       <Provider store={store}>
@@ -43,27 +26,38 @@ const renderWithReduxProvider = (
 
 describe('MessageBox', () => {
   test('should be rendered with given messages from Redux store', () => {
+    const store = createTestStore();
+    store.dispatch(addMessage({
+      type: 'info',
+      text: 'some simple message',
+    }));
+
     renderWithReduxProvider(
       <MessageBox />,
-      { messages: initialMessages }
+      store
     );
-    screen.debug();
     expect(screen.queryByTestId('messageBox')).toBeInTheDocument();
   });
 
-  test('should NOT be rendered', () => {
-    const initialMessages: MessageType[] = [];
-    renderWithReduxProvider(
-      <MessageBox />,
-      { messages: initialMessages }
-    );
+  test('should NOT be rendered (message array is empty)', () => {
+    renderWithReduxProvider(<MessageBox />);
     expect(screen.queryByTestId('messageBox')).not.toBeInTheDocument();
   });
 
   test('close message button removes a message', async () => {
+    const store = createTestStore();
+    store.dispatch(addMessage({
+      type: 'info',
+      text: 'some simple message',
+    }));
+    store.dispatch(addMessage({
+      type: 'error',
+      text: 'network error',
+    }));
+
     renderWithReduxProvider(
       <MessageBox />,
-      { messages: initialMessages }
+      store
     );
     let messagesBefore = screen.getAllByRole(/message/);
     expect(messagesBefore.length).toBe(2);
