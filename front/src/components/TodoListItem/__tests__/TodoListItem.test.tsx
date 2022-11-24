@@ -19,11 +19,9 @@ const defaultProps: ITodoListItem = {
   onDelete: () => {},
 }
 
-const renderTodoListItem = (props: Partial<ITodoListItem> = {}) => {
-  const componentProps = { ...defaultProps, ...props };
-
-  return render(<TodoListItem {...componentProps} />);
-}
+const renderTodoListItem = (props: Partial<ITodoListItem> = {}) => (
+  render(<TodoListItem {...defaultProps} {...props} />)
+)
 
 describe('<TodoListItem />', () => {
   it('<TodoListItem /> renders with title, with unchecked icon and without importance ribbon', () => {
