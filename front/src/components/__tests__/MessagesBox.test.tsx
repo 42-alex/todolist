@@ -1,6 +1,11 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  screen,
+  within
+} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import MessageBox from '../MessagesBox';
 import { configureStore } from '@reduxjs/toolkit';
@@ -62,8 +67,10 @@ describe('MessageBox', () => {
     let messagesBefore = screen.getAllByRole(/message/);
     expect(messagesBefore.length).toBe(2);
 
-    const buttons = screen.getAllByRole(/button/);
-    fireEvent.click(buttons[0]);
+    const messages = screen.getAllByRole(/message/i);
+    const firstMessageCloseButton = within(messages[0]).getByRole(/button/i, { name: /close message/i });
+    fireEvent.click(firstMessageCloseButton);
+
     const messagesAfter = await screen.findAllByRole(/message/);
     expect(messagesAfter.length).toBe(1);
   });
