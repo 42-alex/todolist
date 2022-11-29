@@ -1,12 +1,16 @@
 import React from 'react';
 import styles from './Loader.module.scss';
 
-const Loader = (): JSX.Element | null => {
+interface ILoader {
+  loaderWord: string
+}
+
+const Loader = ({ loaderWord }: ILoader): JSX.Element | null => {
 
   return (
-    <div className={styles.loaderWrapper}>
+    <div className={styles.loaderWrapper} role="loader">
       <div className={styles.loader}>
-        { 'loading'
+        { loaderWord
             .split('')
             .map((char: string, index: number) => (
               <span key={index}>

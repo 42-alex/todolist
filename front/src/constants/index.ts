@@ -11,9 +11,20 @@ const importanceTheme = {
   urgent: '#f44336',
 }
 
+const iconSymbols = {
+  ballotXIcon: '✘',
+  pencilIcon: '✎',
+  checkedIcon: '☑',
+  uncheckedIcon: '☐',
+}
+
+const loaderWord = 'loading';
+
 export {
   baseApiUrl,
   importanceTheme,
   importanceValues,
+  iconSymbols,
+  loaderWord,
 }
 

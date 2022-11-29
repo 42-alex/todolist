@@ -18,7 +18,7 @@ const MessageBox = () => {
   }
 
   return (
-    <div className={`${styles.messagesBox} container`}>
+    <div className={`${styles.messagesBox} container`} data-testid="messageBox">
       { messages.map(message => (
         <Message
           key={message.id}

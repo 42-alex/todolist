@@ -6,6 +6,7 @@ import useFetchTodos from '../../hooks/useFetchTodos';
 import useDeleteTodo from '../../hooks/useDeleteTodo';
 import { Link, useNavigate } from 'react-router-dom';
 import TodoListItem from '../../components/TodoListItem';
+import { loaderWord } from '../../constants';
 
 
 const Home = () => {
@@ -16,7 +17,7 @@ const Home = () => {
   } = useFetchTodos();
   const { mutate: updateTodo } = useUpdateTodo();
   const { mutate: deleteTodo } = useDeleteTodo();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleTodoClick = (id: string, isDone: boolean) => {
     updateTodo({ id, isDone });
@@ -32,7 +33,7 @@ const Home = () => {
 
   return (
     <div className="container">
-      { isFetching && <Loader /> }
+      { isFetching && <Loader loaderWord={loaderWord} /> }
 
       <h1 className="pageTitle">To-do list</h1>
       { todos.length > 0 &&
